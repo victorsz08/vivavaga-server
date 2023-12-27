@@ -47,6 +47,20 @@ export class CompanyController {
         };
     };
 
+    static async getCompanyByOwner(req, res) {
+        const id = req.user.id;
+        
+        try {
+            const company = await companyService.getCompanyByOwner(id);
+            res.status(200).send(company);
+        } catch (err) {
+            if(err instanceof CustomError) {
+                return res.status(err.statusCode).send({message:err.message});
+            };
+            res.status(500).send({message:"Erro Interno" + err.message});  
+        };
+    };
+
     static async updateCompany(req, res) {
         const { name, price_per_hour, city, state } = req.body;
         const { id } = req.params;

@@ -104,6 +104,21 @@ export class CompanyService {
         return company;
     };
 
+    async getCompanyByOwner(id) {
+        const company = await Companies.findOne({
+            where: {
+                owner: id
+            }
+        });
+
+
+        if(!company) {
+            throw new CustomError("empresa não enconrada", 204);
+        };
+
+        return company;
+    };
+
     async updateCompany(dto) {
         const { name, price_per_hour, city, state, id } = dto;
 
