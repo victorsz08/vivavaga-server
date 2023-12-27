@@ -12,7 +12,7 @@ module.exports = {
       name: {
         type: Sequelize.STRING
       },
-      pricePerHour: {
+      price_per_hour: {
         type: Sequelize.FLOAT,
         allowNull: false
       },

@@ -5,7 +5,7 @@ export class Companies extends Model {
   static init(sequelize) {
     super.init({
       name: Sequelize.STRING,
-      pricePerHour: Sequelize.FLOAT,
+      price_per_hour: Sequelize.FLOAT,
       city: Sequelize.STRING,
       state: Sequelize.STRING,
       owner: Sequelize.UUID,
