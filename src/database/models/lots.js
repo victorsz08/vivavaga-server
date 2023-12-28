@@ -8,6 +8,7 @@ export class Lots extends Model {
       plate: Sequelize.STRING,
       type_vehicle: Sequelize.ENUM("Car","Motocycle"),
       status: Sequelize.ENUM("Active","Closed"),
+      price: Sequelize.FLOAT,
       company: Sequelize.UUID,
       created_at: Sequelize.DATE,
       updated_at: Sequelize.DATE

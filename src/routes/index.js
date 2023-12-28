@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import users from './userRoute.js';
 import auth from './authRoute.js';
 import companies from './companyRoute.js';
+import lots from './lotRoute.js';
 
 
 export default app => {
@@ -12,5 +13,6 @@ export default app => {
         auth,
         users,
         companies,
+        lots,
     );
 };

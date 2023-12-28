@@ -9,9 +9,9 @@ router
     .post("/users", UserController.create)
 
 router.use(auth)
-    .get("/users", UserController.getUsers)
+    .get("/users/all", UserController.getUsers)
     .get("/users/:id", UserController.getUserById)
-    .put("/users/:id", UserController.updateUser)
-    .delete("/users/:id", UserController.deleteUser)
+    .put("/users/edit/:id", UserController.updateUser)
+    .delete("/users/delete/:id", UserController.deleteUser)
 
 export default router;

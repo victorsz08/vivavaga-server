@@ -7,7 +7,8 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        defaultValue: Sequelize.INTEGER
       },
       client: {
         type: Sequelize.STRING
@@ -18,26 +19,21 @@ module.exports = {
       type_vehicle: {
         type: Sequelize.ENUM("Car","Motocycle")
       },
+      price: {
+        type: Sequelize.FLOAT
+      },
       status: {
         type: Sequelize.ENUM("Active","Closed"),
         defaultValue: "Active"
       },
       company: {
-        type: Sequelize.UUID,
-        allowNull: false,
-        validate: {
-          notEmpty: true
-        },
-        references: {
-          key: 'id',
-          model: 'companies'
-        }
+        type: Sequelize.UUID
       },
-      createdAt: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE
       }

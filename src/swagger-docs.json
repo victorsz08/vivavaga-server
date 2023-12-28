@@ -1,0 +1,253 @@
+{
+    "openapi":"3.0.0",
+    "info": {
+        "title": "Viva Vaga Api",
+        "description": "Api para gerenciar estacionamentos, definir valores e tempos de veículos nas vagas, registrar entrada e saída de veículos com nomes de clientes e proprietários de estacionamentos",
+        "termsOfService": "",
+        "contact": {
+            "email": "joaovictorsal777@gmail.com"
+        },
+        "version":"1.0.0"
+    },
+    "paths": {
+        "/users": {
+            "post":{
+                "summary":"Cadastro de usuários",
+                "description": "Rota de criação de usuários",
+                "tags":["Users"],
+                "requestBody": {
+                    "content": {
+                        "application/json":{
+                            "schema": {
+                                "$ref": "#/components/schemas/Users"
+                            },
+                            "examples": {
+                                "user": {
+                                    "value": {
+                                        "name": "Rick",
+                                        "lastname": "Grimes",
+                                        "email": "rick.grimes@email.com",
+                                        "password": "rick1234"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Email indísponivel"
+                    },
+                    "201": {
+                        "description": "Cadastro concluído"
+                    }
+                }
+            }
+        },
+        "/users/all": {
+            "get": {
+                "summary": "Busca de usuários",
+                "description": "Busca de todos usuários com query",
+                "tags": ["Users"],
+                "parameters": [
+                    {
+                        "name": "order",
+                        "in": "query",
+                        "description": "Ordem da listagem de usuários",
+                        "require": false
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "Coluna de ordem de busca",
+                        "require": false
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Pagina de listagem de usuários",
+                        "require": false
+                    },
+                    {
+                        "name": "perPage",
+                        "in": "query",
+                        "description": "Número de resultados por página",
+                        "require": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Users"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Usuário não autorizado"
+                    },
+                    "204": {
+                        "description": "Nenhum usuário encontrado"
+                    }
+                }
+            }
+        },
+        "/users/{id}": {
+            "get": {
+                "summary": "Busca de usuário por id",
+                "description": "Busca de usuário a partir do id",
+                "tags": ["Users"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Busca pelo o usuário pelo o path",
+                        "require": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref":"#/components/schemas/Users"
+                                },
+                                "examples": {
+                                    "user": {
+                                        "value": {
+                                            "name": "Rick",
+                                            "lastname": "Grimes",
+                                            "email": "rick.grimes@email.com"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Usuário não utorizado"
+                    },
+                    "204": {
+                        "description": "Usuário não encontrado"
+                    }
+                }
+            }
+        },
+        "/users/edit/{id}": {
+            "put": {
+                "summary": "Edição de dados do usuário",
+                "description": "Editar dados do usuário",
+                "tags": ["Users"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "$ref": "#/components/schemas/Users"
+                            },
+                            "examples": {
+                                "user": {
+                                    "value": {
+                                        "name":"Rick",
+                                        "lastname": "Grimes Reg",
+                                        "email":"rick.grimes2023@email.com"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in":"path",
+                        "description": "Edição do usuário a partir do id do usuário",
+                        "require": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref":"#/components/schemas/Users"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description":"Usuário não autorizado"
+                    },
+                    "400": {
+                        "description": "Email indísponivel"
+                    }
+                }
+            }
+        },
+        "/users/delete/{id}": {
+            "delete": {
+                "summary": "Deletar Usuário",
+                "description": "Rota de exclusão de conta do usuário",
+                "tags": ["Users"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description":"Busca pelo o usuário pelo o path",
+                        "require": "true"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Usuário deletado"
+                    },
+                    "401": {
+                        "description":"Usuário não utorizado"
+                    },
+                    "400": {
+                        "description":"Nenhum usuário encontrado"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas" : {
+            "Users": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "lastname": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    },
+    "securitySchemas": {
+        "bearerAuth": {
+            "type": "http",
+            "scheme": "bearer",
+            "bearerFormat": "JWT"
+        }
+    }
+}
