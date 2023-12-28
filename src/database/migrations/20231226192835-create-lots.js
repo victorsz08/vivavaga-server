@@ -27,7 +27,13 @@ module.exports = {
         defaultValue: "Active"
       },
       company: {
-        type: Sequelize.UUID
+        type: Sequelize.UUID,
+        references: {
+          key: 'id',
+          model: 'companies'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       },
       created_at: {
         allowNull: false,
