@@ -476,6 +476,54 @@
                     }
                 }
             }
+        },
+        "/login": {
+            "post": {
+                "summary": "Login no sistema",
+                "description": "Rota responsavel por fazer login no sistema",
+                "tags": ["Login"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type":"object",
+                                "$ref":"#/components/schemas/Companies"
+                            },
+                            "examples": {
+                                "login": {
+                                    "value": {
+                                        "email": "rick.grimes@email.com",
+                                        "password":"rick1234"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref":"#/components/schemas/Token"
+                                },
+                                "examples": {
+                                    "Token": {
+                                        "value": {
+                                            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Email ou senha incorretos"
+                    }
+                }
+            }
         }
 
     },
@@ -497,6 +545,14 @@
                         "type": "string"
                     },
                     "id": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Token": {
+                "type": "object",
+                "properties": {
+                    "token": {
                         "type": "string"
                     }
                 }
