@@ -29,6 +29,10 @@ export class CompanyService {
             throw new CustomError("usuário não encontrado", 204);
         };
 
+        if(user.owner_company.length > 0) {
+            throw new CustomError("Cada usuário so pode ter uma empresa", 400)
+        }
+
         const company = await Companies.create({
             id: uuidv4(),
             name: name,

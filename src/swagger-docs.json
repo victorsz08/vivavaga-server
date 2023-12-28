@@ -9,6 +9,12 @@
         },
         "version":"1.0.0"
     },
+    "servers": [
+        {
+            "url": "http://localhost:3000/",
+            "description": "API Test"
+        }
+    ],
     "paths": {
         "/users": {
             "post":{
@@ -49,6 +55,7 @@
                 "summary": "Busca de usuários",
                 "description": "Busca de todos usuários com query",
                 "tags": ["Users"],
+                "security": [{ "bearerAuth": [] }],
                 "parameters": [
                     {
                         "name": "order",
@@ -101,6 +108,7 @@
                 "summary": "Busca de usuário por id",
                 "description": "Busca de usuário a partir do id",
                 "tags": ["Users"],
+                "security": [{ "bearerAuth": [] }],
                 "parameters": [
                     {
                         "name": "id",
@@ -144,6 +152,7 @@
                 "summary": "Edição de dados do usuário",
                 "description": "Editar dados do usuário",
                 "tags": ["Users"],
+                "security": [{ "bearerAuth": [] }],
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -197,6 +206,7 @@
                 "summary": "Deletar Usuário",
                 "description": "Rota de exclusão de conta do usuário",
                 "tags": ["Users"],
+                "security": [{ "bearerAuth": [] }],
                 "parameters": [
                     {
                         "name": "id",
@@ -223,6 +233,7 @@
                 "summary": "Criar Empresa",
                 "description": "Rota de criação de empresas",
                 "tags": ["Companies"],
+                "security": [{ "bearerAuth": [] }],
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -279,6 +290,7 @@
                 "summary": "Buscar empresas",
                 "description": "Faz a busca de todas as empresas",
                 "tags": ["Companies"],
+                "security": [{ "bearerAuth": [] }],
                 "parameters": [
                     {
                         "name": "order",
@@ -331,6 +343,7 @@
                 "summary":"Busca de empresa por id",
                 "description": "Busca uma empresa a partir de um id",
                 "tags": ["Companies"],
+                "security": [{ "bearerAuth": [] }],
                 "parameters": [
                     {
                         "name": "id",
@@ -365,6 +378,7 @@
                 "summary": "Busca de empresa a partir do propriétario",
                 "description": "Faz a busca da empresa a partir do usuário logado",
                 "tags": ["Companies"],
+                "security": [{ "bearerAuth": [] }],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -391,6 +405,7 @@
                 "summary": "Editar empresa",
                 "description": "Edicão de dados da empresa",
                 "tags": ["Companies"],
+                "security": [{ "bearerAuth": [] }],
                 "parameters": [
                     {
                         "name":"id",
@@ -456,6 +471,7 @@
                 "summary": "Deletar Empresa",
                 "description": "Exclusão da empresa a partir do id",
                 "tags": ["Companies"],
+                "security": [{ "bearerAuth": [] }],
                 "parameters": [
                     {
                         "name": "id",
@@ -530,6 +546,7 @@
                 "summary": "Criar novo registro de estacionamento",
                 "description": "Criação de um novo registro de estacionamento vinculado a uma empresa",
                 "tags": ["Lots"],
+                "security": [{ "bearerAuth": [] }],
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -595,6 +612,7 @@
                 "summary": "Busca de registros de estacionamento",
                 "description": "Busca registros de estacionamentos associados a uma empresa",
                 "tags": ["Lots"],
+                "security": [{ "bearerAuth": [] }],
                 "parameters": [
                     {
                         "name": "id",
@@ -673,6 +691,7 @@
                 "summary": "Busca registro por id",
                 "description": "Busca um registro por id indicado",
                 "tags": ["Lots"],
+                "security": [{ "bearerAuth": [] }],
                 "parameters": [
                     {
                         "name": "id",
@@ -722,6 +741,7 @@
                 "summary": "Editar registro de estacionamento",
                 "description": "Editar dados de um registro de estacionamento a partir do id",
                 "tags": ["Lots"],
+                "security": [{ "bearerAuth": [] }],
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -790,6 +810,7 @@
                 "summary": "Encerrar estacionamento",
                 "description": "Essa rota é para encerrar o estacionamento, ela vai contar o numero de horas gastas e multiplicar pelo o valor da hora da empresa e retornar o valor total à pagar no estacioanmento",
                 "tags": ["Lots"],
+                "security": [{ "bearerAuth": [] }],
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -935,13 +956,13 @@
                     }
                 }
             }
-        }
-    },
-    "securitySchemas": {
-        "bearerAuth": {
-            "type": "http",
-            "scheme": "bearer",
-            "bearerFormat": "JWT"
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
         }
     }
 }
