@@ -1,6 +1,7 @@
 import { CustomError } from "../middlewares/CustomError.js";
 import { Companies } from "../database/models/companies.js";
 import { Lots } from "../database/models/lots.js";
+import { Op } from "sequelize";
 import moment from "moment";
 
 
@@ -55,7 +56,7 @@ export class LotService {
 
     async getLotsByCompany(dto) {
         const { id, query } = dto;
-        const { sort, order, page, perPage } = query;
+        const { sort, order, page, perPage, search } = query;
         console.log(id)
 
         const pageOptions = parseInt(page) || 1;
@@ -73,6 +74,13 @@ export class LotService {
         if(sort && order) {
             queryOptions.order.push([sort, order.toUpperCase()]);
         };
+
+        if(search) {
+            queryOptions.where = {
+                client: { [Op.like]: `%${search}%` },
+                company: id
+            }
+        }
 
         const lots = await Lots.findAll(queryOptions);
 

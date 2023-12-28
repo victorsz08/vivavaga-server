@@ -453,7 +453,7 @@
         },
         "/companies/delete/{id}": {
             "delete": {
-                "summary": "Deletea Empresa",
+                "summary": "Deletar Empresa",
                 "description": "Exclusão da empresa a partir do id",
                 "tags": ["Companies"],
                 "parameters": [
@@ -524,6 +524,332 @@
                     }
                 }
             }
+        },
+        "/lots/create/{id}": {
+            "post": {
+                "summary": "Criar novo registro de estacionamento",
+                "description": "Criação de um novo registro de estacionamento vinculado a uma empresa",
+                "tags": ["Lots"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "$ref": "#/components/schemas/Lots"
+                            },
+                            "examples": {
+                                "Lots": {
+                                    "value": {
+                                        "client": "Antonio",
+                                        "plate": "ESSD-1332",
+                                        "type_vehicle": "Carro"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id da empresa",
+                        "require": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref":"#/components/schemas/Lots"
+                                },
+                                "examples": {
+                                    "Lots": {
+                                        "value": {
+                                            "client": "Antonio",
+                                            "plate": "ESSD-1332",
+                                            "type_vehicle": "Carro",
+                                            "price": 3.99,
+                                            "status": "Active",
+                                            "company_lot": {
+                                                "name": "Parking Vagas",
+                                                "price_per_hour": 3.99
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description":"Usuário não Autorizado"
+                    }
+                }
+            }
+        },
+        "/lots/company/{id}" : {
+            "get": {
+                "summary": "Busca de registros de estacionamento",
+                "description": "Busca registros de estacionamentos associados a uma empresa",
+                "tags": ["Lots"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id da empresa",
+                        "require": true
+                    },
+                    {
+                        "name": "order",
+                        "in": "query",
+                        "description": "Ordem da listagem de usuários",
+                        "require": false
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "Coluna de ordem de busca",
+                        "require": false
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Pagina de listagem de usuários",
+                        "require": false
+                    },
+                    {
+                        "name": "perPage",
+                        "in": "query",
+                        "description": "Número de resultados por página",
+                        "require": false
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "Busca pelo nome do cliente nos registros de estacionamento da empresa indicada no id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Lots"
+                                },
+                                "examples": {
+                                    "Lots": {
+                                        "value": {
+                                            "client": "Antonio",
+                                            "plate": "ESSD-1332",
+                                            "type_vehicle": "Carro",
+                                            "price": 3.99,
+                                            "status": "Active",
+                                            "company_lot": {
+                                                "name": "Parking Vagas",
+                                                "price_per_hour": 3.99
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Usuário não autorizado"
+                    },
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            }
+        },
+        "/lots/{id}": {
+            "get": {
+                "summary": "Busca registro por id",
+                "description": "Busca um registro por id indicado",
+                "tags": ["Lots"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id do registro de estacionamento",
+                        "require": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type":"object",
+                                    "$ref":"#/components/schemas/Lots"
+                                },
+                                "examples": {
+                                    "Lots": {
+                                        "value": {
+                                            "client": "Antonio",
+                                            "plate": "ESSD-1332",
+                                            "type_vehicle": "Carro",
+                                            "price": 3.99,
+                                            "status": "Active",
+                                            "company_lot": {
+                                                "name": "Parking Vagas",
+                                                "price_per_hour": 3.99
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Usuário não Autorizado"
+                    },
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            }
+        },
+        "/lots/edit/{id}": {
+            "put": {
+                "summary": "Editar registro de estacionamento",
+                "description": "Editar dados de um registro de estacionamento a partir do id",
+                "tags": ["Lots"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "$ref":"#/components/schemas/Lots"
+                            },
+                            "examples": {
+                                "Lots": {
+                                    "value": {
+                                        "client": "Antonio",
+                                        "plate": "ESSD-1332",
+                                        "type_vehicle": "Carro"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id do registro de estacionamento",
+                        "require": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type":"object",
+                                    "$ref":"#/components/schemas/Lots"
+                                },
+                                "examples": {
+                                    "Lots": {
+                                        "value": {
+                                            "client": "Antonio",
+                                            "plate": "ESSD-1332",
+                                            "type_vehicle": "Carro",
+                                            "price": 3.99,
+                                            "status": "Active",
+                                            "company_lot": {
+                                                "name": "Parking Vagas",
+                                                "price_per_hour": 3.99
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Usuário não Autorizado"
+                    },
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            }
+        },
+        "/lots/close/{id}": {
+            "put": {
+                "summary": "Encerrar estacionamento",
+                "description": "Essa rota é para encerrar o estacionamento, ela vai contar o numero de horas gastas e multiplicar pelo o valor da hora da empresa e retornar o valor total à pagar no estacioanmento",
+                "tags": ["Lots"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type":"object",
+                                "$ref":"#/components/schemas/Lots"
+                            },
+                            "examples": {
+                                "Lots": {
+                                    "value": {
+                                        "status": "closed"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id do registro de estacionamento",
+                        "require": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type":"object",
+                                    "$ref":"#/components/schemas/Lots"
+                                },
+                                "examples": {
+                                    "Lots": {
+                                        "value": {
+                                            "client": "Antonio",
+                                            "plate": "ESSD-1332",
+                                            "type_vehicle": "Carro",
+                                            "price": 12.90,
+                                            "status": "Closed",
+                                            "company_lot": {
+                                                "name": "Parking Vagas",
+                                                "price_per_hour": 3.99
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Usuário não Autorizado"
+                    },
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            }
         }
 
     },
@@ -580,6 +906,32 @@
                     },
                     "id": {
                         "type": "string"
+                    }
+                }
+            },
+            "Lots": {
+                "type": "object",
+                "properties": {
+                    "client": {
+                        "type": "string"
+                    },
+                    "plate": {
+                        "type": "string"
+                    },
+                    "type_vehicle": {
+                        "type": "string"
+                    },
+                    "price": {
+                        "type": "number"                        
+                    },
+                    "status": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string"
+                    },
+                    "company_lot": {
+                        "type":"object"
                     }
                 }
             }
