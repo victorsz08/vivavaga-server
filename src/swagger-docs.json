@@ -217,7 +217,267 @@
                     }
                 }
             }
+        },
+        "/companies" :{
+            "post": {
+                "summary": "Criar Empresa",
+                "description": "Rota de criação de empresas",
+                "tags": ["Companies"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type":"object",
+                                "$ref":"#/components/schemas/Companies"
+                            },
+                            "examples": {
+                                "Companies": {
+                                    "value": {
+                                        "name": "Parking Vagas",
+                                        "price_per_hour": 3.50,
+                                        "city": "João Pessoa",
+                                        "state": "Paraíba"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type":"object",
+                                    "$ref":"#/components/schemas/Companies"
+                                },
+                                "examples": {
+                                    "Companies": {
+                                        "value": {
+                                            "name": "Parking Vagas",
+                                            "city":"João Pessoa",
+                                            "state":"Paraíba",
+                                            "price_per_hour": 3.99,
+                                            "company_owner": {
+                                                "name": "Rick",
+                                                "lastname":"Grimes",
+                                                "email": "rick.grimes@email.com"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+        },
+        "/companies/all" : {
+            "get": {
+                "summary": "Buscar empresas",
+                "description": "Faz a busca de todas as empresas",
+                "tags": ["Companies"],
+                "parameters": [
+                    {
+                        "name": "order",
+                        "in": "query",
+                        "description": "Ordenar busca decrescente ou crescente(só será válido se a buscar estive com o parametro sort junto)",
+                        "require": false
+                    },
+                    {
+                        "name":"sort",
+                        "in": "query",
+                        "description": "Indicar por qual coluna deve ser ordernar(Só será válido se o order estiver junto)",
+                        "require": false
+                    },
+                    {
+                        "name":"page",
+                        "in": "query",
+                        "description":"Pagina de listagem de Empresas",
+                        "require": false
+                    },
+                    {
+                        "name":"perPage",
+                        "in":"query",
+                        "description":"Número de resultados por página",
+                        "require": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                           "application/json": {
+                            "schema": {
+                                "type":"object",
+                                "$ref":"#/components/schemas/Companies"
+                            }
+                           }
+                        }
+                    },
+                    "401": {
+                        "description":"Usuário não autorizado"
+                    },
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            }
+        },
+        "/companies/{id}" : {
+            "get": {
+                "summary":"Busca de empresa por id",
+                "description": "Busca uma empresa a partir de um id",
+                "tags": ["Companies"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id da empresa",
+                        "require": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type":"object",
+                                    "$ref":"#/components/schemas/Companies"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Usuário não autorizado"
+                    },
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            }
+        },
+        "/companies/owner": {
+            "get": {
+                "summary": "Busca de empresa a partir do propriétario",
+                "description": "Faz a busca da empresa a partir do usuário logado",
+                "tags": ["Companies"],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type":"object",
+                                    "$ref":"#/components/schemas/Companies"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description":"Usuário não utorizado"
+                    },
+                    "204": {
+                        "description":"No Content"
+                    }
+                }
+            }
+        },
+        "/companies/edit/{id}" : {
+            "put": {
+                "summary": "Editar empresa",
+                "description": "Edicão de dados da empresa",
+                "tags": ["Companies"],
+                "parameters": [
+                    {
+                        "name":"id",
+                        "in": "path",
+                        "description": "Id da empresa a ser editada",
+                        "require": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type":"object",
+                                "$ref":"#/components/schemas/Companies"
+                            },
+                            "examples": {
+                                "Companies": {
+                                    "value": {
+                                        "name": "Parking Vagas",
+                                        "city":"João Pessoa",
+                                        "state":"Paraíba",
+                                        "price_per_hour": 3.99
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Companies"
+                                },
+                                "examples": {
+                                    "Companies": {
+                                        "value": {
+                                            "name": "Parking Vagas",
+                                            "city":"João Pessoa",
+                                            "state":"Paraíba",
+                                            "price_per_hour": 3.99,
+                                            "company_owner": {
+                                                "name": "Rick",
+                                                "lastname":"Grimes",
+                                                "email": "rick.grimes@email.com"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description":"Usuário não utorizado"
+                    }
+                }
+            }
+        },
+        "/companies/delete/{id}": {
+            "delete": {
+                "summary": "Deletea Empresa",
+                "description": "Exclusão da empresa a partir do id",
+                "tags": ["Companies"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in":"path",
+                        "description":"Id da empresa a ser deletada",
+                        "require": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Empresa deletada"
+                    },
+                    "401": {
+                        "description":"Usuário não autorizado"
+                    },
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            }
         }
+
     },
     "components": {
         "schemas" : {
@@ -235,6 +495,32 @@
                     },
                     "password": {
                         "type": "string"
+                    },
+                    "id": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Companies": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type":"string"
+                    },
+                    "price_per_hour": {
+                        "type": "number"
+                    },
+                    "city": {
+                        "type":"string"
+                    },
+                    "state": {
+                        "type": "string"
+                    },
+                    "owner": {
+                        "type": "string"
+                    },
+                    "company_owner": {
+                        "type": "object"
                     },
                     "id": {
                         "type": "string"
