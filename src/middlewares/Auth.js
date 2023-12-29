@@ -17,6 +17,7 @@ export const auth = async (req, res, next) => {
         const decoded = jsonwebtoken.decode(accessToken);
 
         req.user = decoded;
+        res.cookie('id', decoded.id, { httpOnly: true });
 
         next();
     } catch (err) {

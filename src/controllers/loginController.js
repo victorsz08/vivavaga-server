@@ -9,6 +9,7 @@ export class LoginController {
 
         try {
             const payload = await loginService.login(email, password);
+            res.cookie('email', email, { httpOnly: true });
             res.status(200).send(payload);
         } catch (err) {
             if(err instanceof CustomError) {
